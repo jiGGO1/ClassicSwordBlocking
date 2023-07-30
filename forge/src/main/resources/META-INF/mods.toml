@@ -1,0 +1,13 @@
+modLoader = "javafml"
+loaderVersion = "[45,)"
+license = "GNU Lesser General Public License v3.0"
+issueTrackerURL = "https://github.com/jiGGO1/ClassicSwordBlocking/issues"
+
+[[mods]]
+modId = "sword_block"
+version = "${version}"
+displayName = "Classic Sword Blocking"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/classic-sword-blocking"
+logoFile = "icon.png"
+authors = "ji_GGO"
+description = "This mod adds the ability of blocking with a sword."

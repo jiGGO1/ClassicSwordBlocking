@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "sword_block",
+  "version": "${version}",
+  "name": "Classic Sword Blocking",
+  "description": "This mod adds the ability of blocking with a sword.",
+  "authors": [
+    "ji_GGO"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/classic-sword-blocking",
+    "sources": "https://github.com/jiGGO1/ClassicSwordBlocking",
+    "issues": "https://github.com/jiGGO1/ClassicSwordBlocking/issues"
+  },
+  "license": "GNU Lesser General Public License v3.0",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.sword.block.fabric.SwordBlockFabric"
+    ],
+    "client": [
+      "com.sword.block.fabric.client.SwordBlockFabricClient"
+    ]
+  },
+  "mixins": [
+    "sword_block.mixins.json",
+    "sword_block.fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.19",
+    "minecraft": ">=1.19.4"
+  }
+}
