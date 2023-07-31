@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(Player.class)
 public abstract class MixinPlayer extends LivingEntity {
 
-    public MixinPlayer(EntityType<? extends LivingEntity> entityType, Level world) {
-        super(entityType, world);
+    public MixinPlayer(EntityType<? extends LivingEntity> type, Level level) {
+        super(type, level);
     }
 
     @ModifyVariable(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isInvulnerableTo(Lnet/minecraft/world/damagesource/DamageSource;)Z"), ordinal = 0)
@@ -39,7 +39,7 @@ public abstract class MixinPlayer extends LivingEntity {
     }
 
     private boolean isInvulnerable(DamageSource source) {
-        return this.isInvulnerable() && !source.is(DamageTypes.OUT_OF_WORLD) && !source.isCreativePlayer();
+        return this.isInvulnerable() && !source.is(DamageTypes.FELL_OUT_OF_WORLD) && !source.isCreativePlayer();
     }
 
 }
