@@ -1,5 +1,6 @@
 package com.sword.block.mixin;
 
+import com.sword.block.SwordBlockPlatform;
 import net.minecraft.world.item.UseAnim;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -24,6 +25,7 @@ public class MixinUseAnim {
     }
 
     private static UseAnim useAnim$addAnim(String animName) {
+        if (SwordBlockPlatform.isCompatible()) return null;
         ArrayList<UseAnim> animations = new ArrayList<>(Arrays.asList(MixinUseAnim.$VALUES));
         UseAnim animation = useAnim$invokeInit(animName, animations.get(animations.size() - 1).ordinal() + 1);
         animations.add(animation);

@@ -10,6 +10,6 @@ public class SwordBlock {
 
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-    public static final UseAnim SWORD = UseAnim.valueOf("SWORD:BLOCK");
+    public static final UseAnim SWORD = SwordBlockPlatform.getUseAnim();
 
 }

@@ -1,5 +1,6 @@
 package com.sword.block.mixin;
 
+import com.sword.block.SwordBlockPlatform;
 import net.minecraft.client.model.HumanoidModel;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -24,6 +25,7 @@ public class MixinHumanoidModelArmPose {
     }
 
     private static HumanoidModel.ArmPose armPose$addArmPose(String poseName, boolean twoHanded) {
+        if (SwordBlockPlatform.isCompatible()) return null;
         ArrayList<HumanoidModel.ArmPose> poses = new ArrayList<>(Arrays.asList(MixinHumanoidModelArmPose.$VALUES));
         HumanoidModel.ArmPose pose = armPose$invokeInit(poseName, poses.get(poses.size() - 1).ordinal() + 1, twoHanded);
         poses.add(pose);

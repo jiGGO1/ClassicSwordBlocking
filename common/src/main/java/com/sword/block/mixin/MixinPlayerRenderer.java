@@ -5,7 +5,7 @@ import com.sword.block.client.SwordBlockClient;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.world.InteractionHand;
@@ -20,8 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(PlayerRenderer.class)
 public abstract class MixinPlayerRenderer extends LivingEntityRenderer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
 
-    public MixinPlayerRenderer(EntityRendererProvider.Context context, PlayerModel<AbstractClientPlayer> model, float shadowSize) {
-        super(context, model, shadowSize);
+    public MixinPlayerRenderer(EntityRenderDispatcher dispatcher, PlayerModel<AbstractClientPlayer> model, float shadowSize) {
+        super(dispatcher, model, shadowSize);
     }
 
     @Inject(method = "getArmPose",

@@ -9,6 +9,7 @@ import net.minecraft.world.entity.HumanoidArm;
 
 public class SwordBlockClient implements IProxy {
 
+    public static final Class<?>[][] TYPES = {{HumanoidModel.ArmPose.class, boolean.class}};
     public static final HumanoidModel.ArmPose SWORD = SwordBlockPlatform.getSwordBlocking();
     public static final SwordBlockClient INSTANCE = new SwordBlockClient();
 
