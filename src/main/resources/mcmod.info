@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "sword_block",
+    "name": "Classic Sword Blocking",
+    "description": "This mod adds the ability of blocking with a sword.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/classic-sword-blocking",
+    "updateUrl": "",
+    "authorList": ["ji_GGO"],
+    "credits": "",
+    "logoFile": "icon.png",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "minVersion": "0.7.10",
+  "compatibilityLevel": "JAVA_8",
+  "package": "com.sword.block.mixin",
+  "mixins": [
+    "MixinItemSword",
+    "MixinEntityPlayer"
+  ],
+  "client": [
+    "MixinItemRenderer",
+    "MixinRenderPlayer",
+    "MixinModelBiped"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "conformVisibility": true
+  },
+  "refmap": "mixins.sword_block.refmap.json"
+}

@@ -1,22 +1,31 @@
 package com.sword.block.proxy;
 
-import com.sword.block.SwordBlock;
-import com.sword.block.util.EnumHelper;
-import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-/**
- * @author ji_GGO
- * @date 2021/08/13
- */
-public class ClientProxy implements IProxy {
+@SideOnly(Side.CLIENT)
+public class ClientProxy extends CommonProxy {
 
-    private static final Class<?>[][] types = {{BipedModel.ArmPose.class, boolean.class}};
-
-    public static final BipedModel.ArmPose SWORD = EnumHelper.addEnum(types, BipedModel.ArmPose.class, "SWORD:BLOCK", true);;
+    public static final ModelBiped.ArmPose SWORD = EnumHelper.addEnum(ModelBiped.ArmPose.class, "SWORD:BLOCK", new Class<?>[]{});
 
     @Override
-    public void starting() {
-        SwordBlock.LOGGER.info(SWORD);
+    public void preInit(final FMLPreInitializationEvent event) {
+        super.preInit(event);
+    }
+
+    @Override
+    public void init(final FMLInitializationEvent event) {
+        super.init(event);
+    }
+
+    @Override
+    public void postInit(final FMLPostInitializationEvent event) {
+        super.postInit(event);
     }
 
 }

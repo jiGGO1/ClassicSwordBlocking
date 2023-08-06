@@ -1,103 +1,92 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url='https://repo.spongepowered.org/maven' }
         jcenter()
-        mavenCentral()
+        maven { url = "https://files.minecraftforge.net/maven" }
+        maven { url = "https://repo.spongepowered.org/maven" }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'idea'
-apply plugin: 'maven-publish'
+apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'idea'
 
-version = '1.0.0'
-group = 'com.sword.block'
-archivesBaseName = 'SwordBlock'
+version = "1.0.5"
+group = "com.sword.block"
+archivesBaseName = "SwordBlock"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
-
-println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
-minecraft {
-    mappings channel: 'snapshot', version: '20201028-1.16.3'
-    runs {
-        client {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            arg "-mixin.config=sword_block.mixins.json"
-            mods {
-                sword_block {
-                    source sourceSets.main
-                }
-            }
-        }
-        server {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            arg "-mixin.config=sword_block.mixins.json"
-            mods {
-                sword_block {
-                    source sourceSets.main
-                }
-            }
-        }
-        data {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            args '--mod', 'sword_block', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            mods {
-                sword_block {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-mixin {
-    add sourceSets.main, 'sword_block.refmap.json'
+minecraft {
+    version = "1.12.2-14.23.5.2837"
+    runDir = "run"
+    mappings = "snapshot_20171003"
+    clientJvmArgs += "-Dfml.coreMods.load=${mod_core_plugin}"
+    serverJvmArgs += "-Dfml.coreMods.load=${mod_core_plugin}"
+    clientRunArgs += "--mixin ${mod_mixin_configs}"
+    serverRunArgs += "--mixin ${mod_mixin_configs}"
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.4-35.1.4'
+    provided('org.spongepowered:mixin:0.8-SNAPSHOT') {
+        exclude module: 'guava'
+        exclude module: 'commons-io'
+        exclude module: 'gson'
+    }
+}
+
+repositories {
+    maven { url = "https://repo.spongepowered.org/maven" }
+}
+
+mixin {
+    add sourceSets.main, "mixins.sword_block.refmap.json"
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
 }
 
 jar {
+    from(configurations.provided.collect {
+        it.isDirectory() ? it : zipTree(it)
+    }) {
+        exclude "LICENSE.txt", "META-INF/MANIFSET.MF", "META-INF/maven/**", "META-INF/*.RSA", "META-INF/*.SF"
+    }
+
     manifest {
-        attributes([
-            "Specification-Title": "sword_block",
-            "Specification-Vendor": "sword_block",
-            "Specification-Version": "1",
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"sword_block",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConfigs": "sword_block.mixins.json"
-        ])
+        attributes "FMLCorePlugin": mod_core_plugin
+        attributes "FMLCorePluginContainsFMLMod": "true"
+        attributes "ForceLoadAsMod": "true"
+        attributes "TweakClass": "org.spongepowered.asm.launch.MixinTweaker"
+        attributes "TweakOrder": "0"
+        attributes "MixinConfigs": mod_mixin_configs 
+        attributes "Specification-Title" : "Classic Sword Blocking"
+        attributes "Specification-Vendor": "ji_GGO"
+        attributes "Specification-Version" : "1"
+        attributes "Implementation-Title": "Classic Sword Blocking"
+        attributes "Implementation-Version" : project.version
+        attributes "Implementation-Vendor": "ji_GGO"
+        attributes "Implementation-Timestamp" : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
     }
 }
 
-jar.finalizedBy('reobfJar') 
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
-    }
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
