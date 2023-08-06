@@ -1,7 +1,5 @@
-package com.sword.block.fabric.mixin;
+package com.sword.block.mixin;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HumanoidModel;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -9,7 +7,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-@Environment(EnvType.CLIENT)
 @Mixin(HumanoidModel.ArmPose.class)
 @Unique
 public class MixinHumanoidModelArmPose {

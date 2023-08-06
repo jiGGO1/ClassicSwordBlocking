@@ -1,7 +1,7 @@
 package com.sword.block.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
+import com.mojang.math.Vector3f;
 import com.sword.block.SwordBlock;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -28,13 +28,13 @@ public abstract class MixinItemInHandRenderer {
             // https://github.com/Fuzss/swordblockingmechanics/blob/3280e9cb604c58b8538efb3466cf462fd89d2fc3/src/main/java/com/fuzs/swordblockingmechanics/client/element/SwordBlockingExtension.java#L143
             int horizontal = arm == HumanoidArm.RIGHT ? 1 : -1;
             matrices.translate(horizontal * -0.14142136F, 0.08F, 0.14142136F);
-            matrices.mulPose(Axis.XP.rotationDegrees(-102.25F));
-            matrices.mulPose(Axis.YP.rotationDegrees(horizontal * 13.365F));
-            matrices.mulPose(Axis.ZP.rotationDegrees(horizontal * 78.05F));
+            matrices.mulPose(Vector3f.XP.rotationDegrees(-102.25F));
+            matrices.mulPose(Vector3f.YP.rotationDegrees(horizontal * 13.365F));
+            matrices.mulPose(Vector3f.ZP.rotationDegrees(horizontal * 78.05F));
             /*
             matrices.translate(-0.08F * horizontal, 0.1F, 0.03F * horizontal);
-            matrices.mulPose(Axis.ZP.rotationDegrees(80 * horizontal));
-            matrices.mulPose(Axis.YP.rotationDegrees(91 * horizontal));
+            matrices.mulPose(Vector3f.ZP.rotationDegrees(80 * horizontal));
+            matrices.mulPose(Vector3f.YP.rotationDegrees(91 * horizontal));
             */
         }
     }
