@@ -39,7 +39,7 @@ public abstract class MixinPlayer extends LivingEntity {
     }
 
     private boolean isInvulnerable(DamageSource source) {
-        return this.isInvulnerable() && !source.is(DamageTypes.FELL_OUT_OF_WORLD) && !source.isCreativePlayer();
+        return this.isInvulnerable() && !source.is(DamageTypes.OUT_OF_WORLD) && !source.isCreativePlayer();
     }
 
 }
