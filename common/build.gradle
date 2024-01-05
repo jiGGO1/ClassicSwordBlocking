@@ -3,7 +3,9 @@ architectury {
 }
 
 loom {
-
+    mixin {
+        defaultRefmapName = "sword_block.mixins.refmap.json"
+    }
 }
 
 dependencies {

@@ -27,8 +27,8 @@ public abstract class MixinSwordItem extends TieredItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-        ItemStack shield = player.getItemInHand(InteractionHand.OFF_HAND);
-        boolean flag = shield.getItem() instanceof ShieldItem;
+        ItemStack stack = player.getItemInHand(InteractionHand.OFF_HAND);
+        boolean flag = stack.getItem().getUseAnimation(stack) != UseAnim.NONE;
         if (hand == InteractionHand.MAIN_HAND && !flag) {
             player.startUsingItem(hand);
             return InteractionResultHolder.success(player.getItemInHand(hand));
