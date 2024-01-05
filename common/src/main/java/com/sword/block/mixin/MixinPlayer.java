@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -19,7 +20,7 @@ public abstract class MixinPlayer extends LivingEntity {
     }
 
     @ModifyVariable(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isInvulnerableTo(Lnet/minecraft/world/damagesource/DamageSource;)Z"), ordinal = 0)
-    private float onSwordBlock(float damage, DamageSource source) {
+    private float onSwordBlocking(float damage, DamageSource source) {
         if (!this.isInvulnerable(source)) {
             if (!source.isBypassArmor() && this.blocking() && damage > 0) {
                 damage = (1F + damage) * 0.5F;
@@ -28,6 +29,7 @@ public abstract class MixinPlayer extends LivingEntity {
         return damage;
     }
 
+    @Unique
     private boolean blocking() {
         if (this.isUsingItem() && !this.useItem.isEmpty()) {
             Item item = this.useItem.getItem();
@@ -36,6 +38,7 @@ public abstract class MixinPlayer extends LivingEntity {
         return false;
     }
 
+    @Unique
     private boolean isInvulnerable(DamageSource source) {
         return this.isInvulnerable() && source != DamageSource.OUT_OF_WORLD && !source.isCreativePlayer();
     }
