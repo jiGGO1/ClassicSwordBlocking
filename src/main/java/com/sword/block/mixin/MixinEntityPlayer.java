@@ -10,6 +10,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
@@ -21,13 +22,14 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
     }
 
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraftforge/common/ISpecialArmor$ArmorProperties;applyArmor(Lnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/util/NonNullList;Lnet/minecraft/util/DamageSource;D)F"), method = "damageEntity(Lnet/minecraft/util/DamageSource;F)V")
-    private float onSwordBlock(EntityLivingBase entity, NonNullList<ItemStack> inventory, DamageSource source, double damage) {
+    private float onSwordBlocking(EntityLivingBase entity, NonNullList<ItemStack> inventory, DamageSource source, double damage) {
         if (!source.isUnblockable() && isBlocking() && damage > 0.0D) {
             damage = (1.0D + damage) * 0.5D;
         }
         return ISpecialArmor.ArmorProperties.applyArmor(entity, inventory, source, damage);
     }
 
+    @Unique
     private boolean isBlocking() {
         if (this.isHandActive() && !this.activeItemStack.isEmpty()) {
             Item item = this.activeItemStack.getItem();

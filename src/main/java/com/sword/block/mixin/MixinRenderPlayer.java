@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(RenderPlayer.class)
 public abstract class MixinRenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 
+    @Unique
     private ModelBiped.ArmPose sword;
 
     public MixinRenderPlayer(RenderManager manager, ModelBase model, float shadowSize) {
@@ -49,14 +51,15 @@ public abstract class MixinRenderPlayer extends RenderLivingBase<AbstractClientP
                 modelplayer.leftArmPose = this.sword;
             }
         }
-        this.clearSwordBlocking();
-    }
-
-    private void clearSwordBlocking() {
-        this.sword = null;
+        this.clear();
     }
 
     @Shadow
     public abstract ModelPlayer getMainModel();
+
+    @Unique
+    private void clear() {
+        this.sword = null;
+    }
 
 }

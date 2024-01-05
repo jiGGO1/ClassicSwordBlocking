@@ -5,7 +5,7 @@ buildscript {
         maven { url = "https://repo.spongepowered.org/maven" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'com.anatawa12.forge:ForgeGradle:2.3-1.0.+'
         classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
@@ -14,8 +14,8 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'idea'
 
-version = "1.0.5"
-group = "com.sword.block"
+version = rootProject.mod_version
+group = rootProject.maven_group
 archivesBaseName = "SwordBlock"
 
 sourceCompatibility = targetCompatibility = '1.8'
@@ -76,7 +76,7 @@ jar {
         attributes "ForceLoadAsMod": "true"
         attributes "TweakClass": "org.spongepowered.asm.launch.MixinTweaker"
         attributes "TweakOrder": "0"
-        attributes "MixinConfigs": mod_mixin_configs 
+        attributes "MixinConfigs": mod_mixin_configs
         attributes "Specification-Title" : "Classic Sword Blocking"
         attributes "Specification-Vendor": "ji_GGO"
         attributes "Specification-Version" : "1"

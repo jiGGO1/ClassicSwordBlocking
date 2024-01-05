@@ -27,8 +27,8 @@ public class MixinItemSword extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-        ItemStack shield = player.getHeldItem(EnumHand.OFF_HAND);
-        boolean flag = shield.getItem().isShield(shield, player);
+        ItemStack stack = player.getHeldItem(EnumHand.OFF_HAND);
+        boolean flag = stack.getItem().getItemUseAction(stack) != EnumAction.NONE;
         if (hand == EnumHand.MAIN_HAND && !flag) {
             player.setActiveHand(hand);
             return new ActionResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));

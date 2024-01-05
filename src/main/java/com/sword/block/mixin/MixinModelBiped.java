@@ -34,9 +34,9 @@ public abstract class MixinModelBiped extends ModelBase {
     @Inject(at = @At("TAIL"), method = "setRotationAngles(FFFFFFLnet/minecraft/entity/Entity;)V")
     private void renderSwordBlock(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity, CallbackInfo info) {
         EnumHandSide arm = entity instanceof EntityLivingBase ? ((EntityLivingBase)entity).getPrimaryHand() : EnumHandSide.RIGHT;
-        if (this.rightArmPose == SwordBlockClient.SWORD && arm == EnumHandSide.RIGHT) {
+        if (this.rightArmPose == SwordBlockClient.SWORD && arm == EnumHandSide.RIGHT && this.leftArmPose == ModelBiped.ArmPose.EMPTY) {
             SwordBlockClient.renderArm(arm, this.bipedRightArm);
-        } else if (this.leftArmPose == SwordBlockClient.SWORD && arm == EnumHandSide.LEFT) {
+        } else if (this.leftArmPose == SwordBlockClient.SWORD && arm == EnumHandSide.LEFT && this.rightArmPose == ModelBiped.ArmPose.EMPTY) {
             SwordBlockClient.renderArm(arm, this.bipedLeftArm);
         }
     }
