@@ -11,6 +11,7 @@
   "client": [
     "MixinPlayerRenderer",
     "MixinHumanoidModel",
-    "MixinItemInHandRenderer"
+    "MixinItemInHandRenderer",
+    "MixinHumanoidModelArmPose"
   ]
 }

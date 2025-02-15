@@ -3,6 +3,7 @@ package com.sword.block.mixin;
 import com.sword.block.SwordBlock;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -16,7 +17,7 @@ public abstract class MixinSwordItem extends TieredItem {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack stack, LivingEntity living) {
         return 72000;
     }
 

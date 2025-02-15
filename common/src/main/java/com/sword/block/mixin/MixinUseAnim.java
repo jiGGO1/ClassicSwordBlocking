@@ -2,7 +2,6 @@ package com.sword.block.mixin;
 
 import net.minecraft.world.item.UseAnim;
 import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,16 +15,16 @@ public class MixinUseAnim {
     @Mutable
     private static UseAnim[] $VALUES;
 
-    private static final UseAnim SWORD = useAnim$addAnim("SWORD:BLOCK");
+    private static final UseAnim SWORD = create("SWORD:BLOCK");
 
-    @Invoker("<init>")
-    public static UseAnim useAnim$invokeInit(String name, int id) {
-        throw new AssertionError();
+    public MixinUseAnim(String name, int id) {
+
     }
 
-    private static UseAnim useAnim$addAnim(String animName) {
+    @Unique
+    private static UseAnim create(String animName) {
         ArrayList<UseAnim> animations = new ArrayList<>(Arrays.asList(MixinUseAnim.$VALUES));
-        UseAnim animation = useAnim$invokeInit(animName, animations.get(animations.size() - 1).ordinal() + 1);
+        UseAnim animation = (UseAnim)(Object)new MixinUseAnim(animName, animations.get(animations.size() - 1).ordinal() + 1);
         animations.add(animation);
         MixinUseAnim.$VALUES = animations.toArray(new UseAnim[0]);
         return animation;
