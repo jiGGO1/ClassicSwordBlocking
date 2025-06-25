@@ -11,6 +11,7 @@ loom {
     forge {
         convertAccessWideners = true
         mixinConfig "sword_block.mixins.json"
+        mixinConfig "sword_block.forge.mixins.json"
     }
 }
 
@@ -24,6 +25,7 @@ configurations {
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
+    modCompileOnly "net.minecraftforge:eventbus:7.0-beta.1"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

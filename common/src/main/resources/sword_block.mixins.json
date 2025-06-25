@@ -4,9 +4,10 @@
   "package": "com.sword.block.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MixinUseAnim",
-    "MixinSwordItem",
-    "MixinPlayer"
+    "MixinItemUseAnimation",
+    "MixinItem",
+    "MixinPlayer",
+    "MixinToolMaterial"
   ],
   "client": [
     "MixinPlayerRenderer",

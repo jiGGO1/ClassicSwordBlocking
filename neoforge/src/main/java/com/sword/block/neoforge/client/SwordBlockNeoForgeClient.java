@@ -2,16 +2,16 @@ package com.sword.block.neoforge.client;
 
 import com.sword.block.SwordBlock;
 import com.sword.block.client.SwordBlockClient;
-import com.sword.block.neoforge.SwordBlockForge;
+import com.sword.block.neoforge.SwordBlockNeoForge;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.Mod;
 
 @Mod(value = SwordBlock.MODID, dist = Dist.CLIENT)
-public class SwordBlockForgeClient {
+public class SwordBlockNeoForgeClient {
 
-    public SwordBlockForgeClient() {
-        SwordBlockForge.proxy = SwordBlockClient.INSTANCE;
-        SwordBlockForge.proxy.starting();
+    public SwordBlockNeoForgeClient() {
+        SwordBlockNeoForge.proxy = SwordBlockClient.INSTANCE;
+        SwordBlockNeoForge.proxy.starting();
     }
 
 }

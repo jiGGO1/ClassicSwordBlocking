@@ -1,6 +1,7 @@
 package com.sword.block.mixin;
 
 import com.sword.block.SwordBlock;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -21,8 +22,8 @@ public abstract class MixinPlayer extends LivingEntity {
         super(type, level);
     }
 
-    @ModifyVariable(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isInvulnerableTo(Lnet/minecraft/world/damagesource/DamageSource;)Z"), ordinal = 0)
-    private float onSwordBlocking(float damage, DamageSource source) {
+    @ModifyVariable(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isInvulnerableTo(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)Z"), ordinal = 0)
+    private float onSwordBlocking(float damage, ServerLevel level, DamageSource source) {
         if (!this.isInvulnerable(source)) {
             if (!source.is(DamageTypeTags.BYPASSES_ARMOR) && this.blocking() && damage > 0) {
                 damage = (1F + damage) * 0.5F;
